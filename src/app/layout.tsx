@@ -19,11 +19,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Gold Calculator - Real-Time Value Estimator",
     description: "Quickly calculate the value of your gold based on current market prices. Simple and accurate.",
-    url: "https://yourdomain.com",
+    url: "https://gold-prices-calculator.vercel.app",
     type: "website",
     images: [
       {
-        url: "https://yourdomain.com/og-image.jpg",
+        url: "https://gold-prices-calculator.vercel.app/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Gold Calculator",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Gold Calculator - Real-Time Value Estimator",
     description: "Estimate your gold's value instantly using our reliable calculator.",
-    images: ["https://yourdomain.com/og-image.jpg"],
+    images: ["https://gold-prices-calculator.vercel.app/og-image.jpg"],
   },
 };
 
