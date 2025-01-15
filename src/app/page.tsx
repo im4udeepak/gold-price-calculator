@@ -3,6 +3,7 @@ import React, { useState } from "react";
 
 export default function Home() {
   // State definitions with types
+  const [otherPrice, setOtherPrice] = useState<number>(0); // Price per gram of gold
   const [goldPrice, setGoldPrice] = useState<number | "">(""); // Price per gram of gold
   const [weight, setWeight] = useState<number | "">(""); // Weight of gold in grams
   const [makingChargeRate, setMakingChargeRate] = useState<number>(1); // Making charge percentage
@@ -14,6 +15,7 @@ export default function Home() {
     goldCost: number;
     makingCharges: number;
     gst: number;
+    otherPrice: number;
     total: number;
   } | null>(null); // For detailed breakdown
 
@@ -61,10 +63,20 @@ export default function Home() {
     const makingCharges = (makingChargeRate / 100) * goldCost;
     const subtotal = goldCost + makingCharges;
     const gst = (gstRate / 100) * subtotal;
-    const total = subtotal + gst;
+    const total = subtotal + gst + otherPrice;
 
-    setBreakdown({ goldCost, makingCharges, gst, total });
+    setBreakdown({ goldCost, makingCharges, gst, otherPrice, total });
   };
+  const handleReset = () => {
+    setErrors({});
+    setOtherPrice(0);
+    setGoldPrice("");
+    setWeight("");
+    setMakingChargeRate(1);
+    setGstRate(0);
+    setGoldType("24K")
+    setBreakdown(null);
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
@@ -168,6 +180,19 @@ export default function Home() {
               ))}
             </select>
           </div>
+          {/* Other Price Input */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Other Price (₹) (Optional)
+            </label>
+            <input
+              type="number"
+              value={otherPrice || ""}
+              onChange={(e) => setOtherPrice(parseFloat(e.target.value) || 0)}
+              placeholder="Other Price (₹) (Optional)"
+              className="w-full mt-1 text-black p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
 
           {/* Calculate Button */}
           <button
@@ -178,21 +203,33 @@ export default function Home() {
           </button>
           {/* Display Total Price Breakdown */}
           {breakdown && (
-            <div className="mt-6 bg-gray-50 p-4 rounded-lg shadow-md">
-              <h3 className="text-lg font-bold text-gray-700">Price Breakdown:</h3>
-              <p className="text-sm text-gray-600">
-                <strong>Gold Price:</strong> ₹{breakdown.goldCost.toFixed(2)}
-              </p>
-              <p className="text-sm text-gray-600">
-                <strong>Making Charges:</strong> ₹{breakdown.makingCharges.toFixed(2)}
-              </p>
-              <p className="text-sm text-gray-600">
-                <strong>GST:</strong> ₹{breakdown.gst.toFixed(2)}
-              </p>
-              <p className="text-lg font-bold text-green-600">
-                <strong>Total Price:</strong> ₹{breakdown.total.toFixed(2)}
-              </p>
-            </div>
+            <>
+              <button
+                type="reset"
+                onClick={handleReset}
+                className="w-full bg-gray-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition"
+              >
+                Reset
+              </button>
+              <div className="mt-6 bg-gray-50 p-4 rounded-lg shadow-md">
+                <h3 className="text-lg font-bold text-gray-700">Price Breakdown:</h3>
+                <p className="text-sm text-gray-600">
+                  <strong>Gold Price:</strong> ₹{breakdown.goldCost.toFixed(2)}
+                </p>
+                <p className="text-sm text-gray-600">
+                  <strong>Making Charges:</strong> ₹{breakdown.makingCharges.toFixed(2)}
+                </p>
+                <p className="text-sm text-gray-600">
+                  <strong>GST:</strong> ₹{breakdown.gst.toFixed(2)}
+                </p>
+                <p className="text-sm text-gray-600">
+                  <strong>Other Price:</strong> ₹{breakdown.otherPrice.toFixed(2)}
+                </p>
+                <p className="text-lg font-bold text-green-600">
+                  <strong>Total Price:</strong> ₹{breakdown.total.toFixed(2)}
+                </p>
+              </div>
+            </>
           )}
           {/* Display Total Price*/}
           {/*{totalPrice > 0 && (
