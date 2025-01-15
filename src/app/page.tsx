@@ -10,6 +10,12 @@ export default function Home() {
   const [totalPrice, setTotalPrice] = useState<number>(0); // Final calculated price
   const [goldType, setGoldType] = useState<string>("24K"); // Type of gold
   const [errors, setErrors] = useState<{ goldPrice?: string; weight?: string }>({});
+  const [breakdown, setBreakdown] = useState<{
+    goldCost: number;
+    makingCharges: number;
+    gst: number;
+    total: number;
+  } | null>(null); // For detailed breakdown
 
   // Function to validate form
   const validateForm = () => {
@@ -36,16 +42,28 @@ export default function Home() {
           ? 0.916
           : goldType === "21K"
             ? 0.875
-            : goldType === "18K"
-              ? 0.75
-              : 1;
-    const adjustedGoldPrice = (goldPrice as number) * goldTypeMultiplier;
+            : goldType === "20K"
+              ? 0.833
+              : goldType === "18K"
+                ? 0.75
+                : goldType === "16K"
+                  ? 0.666
+                  : 1;
+    // const adjustedGoldPrice = (goldPrice as number) * goldTypeMultiplier;
+    // const goldCost = adjustedGoldPrice * (weight as number);
+    // const makingCharges = (makingChargeRate / 100) * goldCost;
+    // const subtotal = goldCost + makingCharges;
+    // const gst = (gstRate / 100) * subtotal;
+    // setTotalPrice(subtotal + gst);
 
+    const adjustedGoldPrice = (goldPrice as number) * goldTypeMultiplier;
     const goldCost = adjustedGoldPrice * (weight as number);
     const makingCharges = (makingChargeRate / 100) * goldCost;
     const subtotal = goldCost + makingCharges;
     const gst = (gstRate / 100) * subtotal;
-    setTotalPrice(subtotal + gst);
+    const total = subtotal + gst;
+
+    setBreakdown({ goldCost, makingCharges, gst, total });
   };
 
   return (
@@ -86,7 +104,9 @@ export default function Home() {
               <option value="24K">24K</option>
               <option value="22K">22K</option>
               <option value="21K">21K</option>
+              <option value="20K">20K</option>
               <option value="18K">18K</option>
+              <option value="16K">16K</option>
             </select>
           </div>
 
@@ -156,13 +176,30 @@ export default function Home() {
           >
             Calculate Total
           </button>
-
-          {/* Display Total Price */}
-          {totalPrice > 0 && (
+          {/* Display Total Price Breakdown */}
+          {breakdown && (
+            <div className="mt-6 bg-gray-50 p-4 rounded-lg shadow-md">
+              <h3 className="text-lg font-bold text-gray-700">Price Breakdown:</h3>
+              <p className="text-sm text-gray-600">
+                <strong>Gold Price:</strong> ₹{breakdown.goldCost.toFixed(2)}
+              </p>
+              <p className="text-sm text-gray-600">
+                <strong>Making Charges:</strong> ₹{breakdown.makingCharges.toFixed(2)}
+              </p>
+              <p className="text-sm text-gray-600">
+                <strong>GST:</strong> ₹{breakdown.gst.toFixed(2)}
+              </p>
+              <p className="text-lg font-bold text-green-600">
+                <strong>Total Price:</strong> ₹{breakdown.total.toFixed(2)}
+              </p>
+            </div>
+          )}
+          {/* Display Total Price*/}
+          {/*{totalPrice > 0 && (
             <div className="text-center mt-4 text-lg font-bold text-green-600">
               Total Price: ₹{totalPrice.toFixed(2)}
             </div>
-          )}
+          )} */}
         </form>
       </div>
     </div>
