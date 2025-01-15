@@ -7,7 +7,7 @@ export default function Home() {
   const [weight, setWeight] = useState<number | "">(""); // Weight of gold in grams
   const [makingChargeRate, setMakingChargeRate] = useState<number>(1); // Making charge percentage
   const [gstRate, setGstRate] = useState<number>(0); // GST percentage
-  const [totalPrice, setTotalPrice] = useState<number>(0); // Final calculated price
+  // const [totalPrice, setTotalPrice] = useState<number>(0); // Final calculated price
   const [goldType, setGoldType] = useState<string>("24K"); // Type of gold
   const [errors, setErrors] = useState<{ goldPrice?: string; weight?: string }>({});
   const [breakdown, setBreakdown] = useState<{
