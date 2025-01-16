@@ -173,7 +173,7 @@ export default function Home() {
     }
   };
   const getGoldPrice = useCallback(() => {
-    if (localStorage.getItem("currentGoldPrice")) {
+    if (typeof window !== "undefined" && localStorage.getItem("currentGoldPrice")) {
       const storedPrice = localStorage.getItem("currentGoldPrice");
       if (storedPrice) {
         const number = parseFloat(storedPrice); // Parse as a float
@@ -183,7 +183,7 @@ export default function Home() {
         }
       }
     }
-  }, [localStorage.getItem("currentGoldPrice")])
+  }, []);
   useEffect(() => { fetchGoldPrice(); getGoldPrice(); }, []);
 
   return (
