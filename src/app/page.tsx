@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 
 
@@ -143,6 +143,7 @@ export default function Home() {
     setGoldType("24K")
     setBreakdown(null);
     fetchGoldPrice();
+    getGoldPrice();
   }
   const fetchGoldPrice = async () => {
     const url = 'https://www.goodreturns.in/gold-rates/delhi.html'; // Replace with the actual URL
@@ -150,7 +151,6 @@ export default function Home() {
     try {
       const response = await fetch(url);
       if (!response.ok) throw new Error('Error fetching the page');
-
       const html = await response.text();
       const parser = new DOMParser();
       const doc = parser.parseFromString(html, 'text/html');
@@ -161,8 +161,9 @@ export default function Home() {
           const goldPrice = element?.textContent.trim();
           const numericString = goldPrice.replace(/[^0-9.]/g, '');
           const number = parseFloat(numericString);
-          setCurrentGoldPrice(number);
-          setGoldPrice(number);
+          if (number) {
+            localStorage.setItem("currentGoldPrice", String(number))
+          }
         }
       } else {
         console.error('Gold price element not found on the page');
@@ -171,7 +172,19 @@ export default function Home() {
       console.error('Error:', error);
     }
   };
-  useEffect(() => { fetchGoldPrice(); }, [])
+  const getGoldPrice = useCallback(() => {
+    if (localStorage.getItem("currentGoldPrice")) {
+      const storedPrice = localStorage.getItem("currentGoldPrice");
+      if (storedPrice) {
+        const number = parseFloat(storedPrice); // Parse as a float
+        if (!isNaN(number)) { // Ensure it's a valid number
+          setCurrentGoldPrice(number);
+          setGoldPrice(number);
+        }
+      }
+    }
+  }, [localStorage.getItem("currentGoldPrice")])
+  useEffect(() => { fetchGoldPrice(); getGoldPrice(); }, []);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
