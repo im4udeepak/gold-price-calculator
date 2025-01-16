@@ -51,6 +51,7 @@ export default function Home() {
         weightRequired: "Weight is required",
         weightPositive: "Weight must be greater than 0",
       },
+      choose: "Select",
     },
     hi: {
       title: "सोने की कीमत कैलकुलेटर",
@@ -79,6 +80,7 @@ export default function Home() {
         weightRequired: "वजन आवश्यक है",
         weightPositive: "वजन 0 से अधिक होना चाहिए",
       },
+      choose: "चुने",
     },
   };
   // Function to validate form
@@ -243,28 +245,46 @@ export default function Home() {
             )}
           </div>
 
+          {/* Making Charges Input */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
               {t.makingChargesLabel}
             </label>
-            <input
-              type="number"
+            <select
               value={makingChargeRate}
               onChange={(e) => setMakingChargeRate(parseFloat(e.target.value))}
-              className="w-full mt-1 text-black p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
+              className="w-full text-black mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="" disabled>
+                {t.choose} {t.makingChargesLabel}
+              </option>
+              {Array.from({ length: 100 }, (_, i) => i + 1).map((value) => (
+                <option key={value} value={value}>
+                  {value}%
+                </option>
+              ))}
+            </select>
           </div>
 
+          {/* GST Input */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
               {t.gstLabel}
             </label>
-            <input
-              type="number"
+            <select
               value={gstRate}
               onChange={(e) => setGstRate(parseFloat(e.target.value))}
-              className="w-full mt-1 text-black p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
+              className="w-full text-black mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="" disabled>
+                {t.choose} {t.gstLabel}
+              </option>
+              {Array.from({ length: 29 }, (_, i) => i).map((value) => (
+                <option key={value} value={value}>
+                  {value}%
+                </option>
+              ))}
+            </select>
           </div>
 
           <div>
