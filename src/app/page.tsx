@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Home() {
   // State definitions with types
@@ -76,7 +76,35 @@ export default function Home() {
     setGstRate(0);
     setGoldType("24K")
     setBreakdown(null);
+    fetchGoldPrice();
   }
+  const fetchGoldPrice = async () => {
+    const url = 'https://www.goodreturns.in/gold-rates/delhi.html'; // Replace with the actual URL
+
+    try {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error('Error fetching the page');
+
+      const html = await response.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      const goldPriceElement = doc.querySelectorAll('.gold-common-head');
+      if (goldPriceElement.length > 0) {
+        const element = goldPriceElement?.[3] as HTMLElement | null;
+        if (element?.textContent) {
+          const goldPrice = element?.textContent.trim();
+          const numericString = goldPrice.replace(/[^0-9.]/g, '');
+          const number = parseFloat(numericString);
+          setGoldPrice(number);
+        }
+      } else {
+        console.error('Gold price element not found on the page');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  useEffect(() => { fetchGoldPrice(); }, [])
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
