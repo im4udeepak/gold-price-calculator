@@ -47,7 +47,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="theme-color" content="#FFD700" />
+        <meta name="theme-color" content="#f3f4f6" />
         <meta name="robots" content="index, follow" />
         <meta name="language" content="en-US" />
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
