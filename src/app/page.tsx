@@ -194,7 +194,7 @@ export default function Home() {
         }
     }, [])
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
+        <div className="min-h-screen flex items-center justify-center bg-black-100 md:p-4 py-4">
             <div>
                 <div className="flex justify-center gap-4 mb-6">
                     <button
@@ -209,7 +209,7 @@ export default function Home() {
                         {t.sellButton}
                     </button>
                 </div>
-                <div className="w-full max-w-md bg-black shadow-lg rounded-lg p-6">
+                <div className="w-full md:max-w-md bg-black shadow-[0px_0px_20px] shadow-gold md:rounded-lg p-6">
                     {/* Language Selection Dropdown */}
                     <div className="flex justify-end mb-4">
                         <select
