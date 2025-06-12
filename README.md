@@ -28,7 +28,6 @@
   - [☑️ Prerequisites](#-prerequisites)
   - [⚙️ Installation](#-installation)
   - [🤖 Usage](#🤖-usage)
-  - [🧪 Testing](#🧪-testing)
 - [📌 Project Roadmap](#-project-roadmap)
 - [🔰 Contributing](#-contributing)
 - [🎗 License](#-license)
@@ -58,14 +57,18 @@
     ├── next.config.ts
     ├── package-lock.json
     ├── package.json
+    ├── page.tsx
     ├── postcss.config.mjs
     ├── public
     │   ├── file.svg
     │   ├── globe.svg
     │   ├── next.svg
+    │   ├── og-image-old.jpg
     │   ├── og-image.jpg
     │   ├── vercel.svg
     │   └── window.svg
+    ├── sell
+    │   └── page.tsx
     ├── src
     │   └── app
     ├── tailwind.config.ts
@@ -94,6 +97,10 @@
 			</tr>
 			<tr>
 				<td><b><a href='https://github.com/im4udeepak/gold-price-calculator/blob/master/eslint.config.mjs'>eslint.config.mjs</a></b></td>
+				<td><code>❯ REPLACE-ME</code></td>
+			</tr>
+			<tr>
+				<td><b><a href='https://github.com/im4udeepak/gold-price-calculator/blob/master/page.tsx'>page.tsx</a></b></td>
 				<td><code>❯ REPLACE-ME</code></td>
 			</tr>
 			<tr>
@@ -139,8 +146,30 @@
 						<td><code>❯ REPLACE-ME</code></td>
 					</tr>
 					</table>
+					<details>
+						<summary><b>sell</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/im4udeepak/gold-price-calculator/blob/master/src/app/sell/page.tsx'>page.tsx</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+						</blockquote>
+					</details>
 				</blockquote>
 			</details>
+		</blockquote>
+	</details>
+	<details> <!-- sell Submodule -->
+		<summary><b>sell</b></summary>
+		<blockquote>
+			<table>
+			<tr>
+				<td><b><a href='https://github.com/im4udeepak/gold-price-calculator/blob/master/sell/page.tsx'>page.tsx</a></b></td>
+				<td><code>❯ REPLACE-ME</code></td>
+			</tr>
+			</table>
 		</blockquote>
 	</details>
 </details>
@@ -152,7 +181,7 @@
 
 Before getting started with gold-price-calculator, ensure your runtime environment meets the following requirements:
 
-- **Programming Language:** Error detecting primary_language: {'json': 4, 'ts': 3, 'mjs': 2, 'tsx': 2, 'css': 1}
+- **Programming Language:** TypeScript
 - **Package Manager:** Npm
 
 
@@ -175,10 +204,10 @@ Install gold-price-calculator using one of the following methods:
 3. Install the project dependencies:
 
 
-**Using `npm`** &nbsp; [<img align="center" src="" />]()
+**Using `npm`** &nbsp; [<img align="center" src="https://img.shields.io/badge/npm-CB3837.svg?style={badge_style}&logo=npm&logoColor=white" />](https://www.npmjs.com/)
 
 ```sh
-❯ echo 'npm install'
+❯ npm install
 ```
 
 
@@ -186,19 +215,10 @@ Install gold-price-calculator using one of the following methods:
 
 ### 🤖 Usage
 Run gold-price-calculator using the following command:
-**Using `npm`** &nbsp; [<img align="center" src="" />]()
+**Using `npm`** &nbsp; [<img align="center" src="https://img.shields.io/badge/npm-CB3837.svg?style={badge_style}&logo=npm&logoColor=white" />](https://www.npmjs.com/)
 
 ```sh
-❯ echo 'npm run dev'
-```
-
-
-### 🧪 Testing
-Run the test suite using the following command:
-**Using `npm`** &nbsp; [<img align="center" src="" />]()
-
-```sh
-❯ echo 'npm run dev'
+❯ npm run dev
 ```
 
 
