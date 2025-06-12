@@ -51,6 +51,7 @@
 
 ```sh
 └── gold-price-calculator/
+    ├── LICENSE
     ├── README.md
     ├── eslint.config.mjs
     ├── next-env.d.ts
@@ -71,6 +72,16 @@
     │   └── page.tsx
     ├── src
     │   └── app
+    │       ├── apple-touch-icon-old.png
+    │       ├── apple-touch-icon.png
+    │       ├── favicon-old.ico
+    │       ├── favicon.ico
+    │       ├── globals.css
+    │       ├── layout.tsx
+    │       ├── manifest.json
+    │       ├── page.tsx
+    │       └── sell
+    │           └── page.tsx
     ├── tailwind.config.ts
     └── tsconfig.json
 ```
