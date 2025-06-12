@@ -185,13 +185,20 @@ export default function Home() {
         }
     }, []);
     useEffect(() => { fetchGoldPrice(); getGoldPrice(); }, []);
-
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            const storedLanguage = localStorage.getItem("language");
+            if (storedLanguage) {
+                setLanguage(storedLanguage as "en" | "hi")
+            }
+        }
+    }, [])
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
             <div>
                 <div className="flex justify-center gap-4 mb-6">
                     <button
-                        className={`px-4 py-2 rounded-lg font-bold bg-blue-500 text-white`}
+                        className={`px-4 py-2 rounded-lg font-bold bg-gold text-white`}
                     >
                         {t.buyButton}
                     </button>
@@ -202,12 +209,15 @@ export default function Home() {
                         {t.sellButton}
                     </button>
                 </div>
-                <div className="w-full max-w-md bg-white shadow-lg rounded-lg p-6">
+                <div className="w-full max-w-md bg-black shadow-lg rounded-lg p-6">
                     {/* Language Selection Dropdown */}
                     <div className="flex justify-end mb-4">
                         <select
                             value={language}
-                            onChange={(e) => setLanguage(e.target.value as "en" | "hi")}
+                            onChange={(e) => {
+                                setLanguage(e.target.value as "en" | "hi");
+                                localStorage.setItem("language", String(e.target.value as "en" | "hi"))
+                            }}
                             className="text-black p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
                             <option value="en">English</option>
@@ -215,12 +225,12 @@ export default function Home() {
                         </select>
                     </div>
 
-                    <h2 className="sm:text-2xl text-xl font-bold text-center mb-6 text-gray-800">
+                    <h2 className="sm:text-2xl text-xl font-bold text-center mb-6 text-gold">
                         {t.title}
                     </h2>
                     <form onSubmit={calculateTotal} className="space-y-4">
                         <div>
-                            <label className="block text-sm font-medium text-gray-700">
+                            <label className="block text-sm font-medium text-white">
                                 {t.goldPriceLabel}
                             </label>
                             <input
@@ -230,7 +240,7 @@ export default function Home() {
                                 placeholder={t.goldPricePlaceholder}
                                 className="w-full mt-1 text-black p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
-                            <p className="text-gray-500 text-sm mt-1">
+                            <p className="text-gold text-sm mt-1">
                                 {t.goldPriceNote.replace("{price}", String(currentGoldPrice || "0"))}
                             </p>
                             {errors.goldPrice && (
@@ -239,7 +249,7 @@ export default function Home() {
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700">
+                            <label className="block text-sm font-medium text-white">
                                 {t.goldTypeLabel}
                             </label>
                             <select
@@ -257,7 +267,7 @@ export default function Home() {
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700">
+                            <label className="block text-sm font-medium text-white">
                                 {t.weightLabel}
                             </label>
                             <input
@@ -274,7 +284,7 @@ export default function Home() {
 
                         {/* Making Charges Input */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700">
+                            <label className="block text-sm font-medium text-white">
                                 {t.makingChargesLabel}
                             </label>
                             <select
@@ -295,7 +305,7 @@ export default function Home() {
 
                         {/* GST Input */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700">
+                            <label className="block text-sm font-medium text-white">
                                 {t.gstLabel}
                             </label>
                             <select
@@ -315,7 +325,7 @@ export default function Home() {
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700">
+                            <label className="block text-sm font-medium text-white">
                                 {t.otherPriceLabel}
                             </label>
                             <input
@@ -329,7 +339,7 @@ export default function Home() {
 
                         <button
                             type="submit"
-                            className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition"
+                            className="w-full bg-gold text-white font-bold py-2 px-4 rounded-lg hover:bg-gold transition"
                         >
                             {t.calculateButton}
                         </button>
@@ -359,7 +369,7 @@ export default function Home() {
                                     <p className="text-sm text-gray-600">
                                         <strong>{t.otherPrice}:</strong> ₹{breakdown.otherPrice.toFixed(2)}
                                     </p>
-                                    <p className="text-lg font-bold text-green-600">
+                                    <p className="text-lg font-bold text-gold">
                                         <strong>{t.totalPrice}:</strong> ₹{breakdown.total.toFixed(2)}
                                     </p>
                                 </div>

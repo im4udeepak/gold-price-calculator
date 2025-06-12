@@ -167,6 +167,14 @@ export default function SellGold() {
         fetchGoldPrice();
         getGoldPrice();
     }, []);
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            const storedLanguage = localStorage.getItem("language");
+            if (storedLanguage) {
+                setLanguage(storedLanguage as "en" | "hi")
+            }
+        }
+    }, [])
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
             <div>
@@ -178,17 +186,20 @@ export default function SellGold() {
                         {t.buyButton}
                     </button>
                     <button
-                        className={`px-4 py-2 rounded-lg font-bold bg-blue-500 text-white`}
+                        className={`px-4 py-2 rounded-lg font-bold bg-gold text-white`}
                     >
                         {t.sellButton}
                     </button>
                 </div>
-                <div className="w-full max-w-md bg-white shadow-lg rounded-lg p-6">
+                <div className="w-full max-w-md bg-black shadow-lg rounded-lg p-6">
                     {/* Language Switch */}
                     <div className="flex justify-end mb-4">
                         <select
                             value={language}
-                            onChange={(e) => setLanguage(e.target.value as "en" | "hi")}
+                            onChange={(e) => {
+                                setLanguage(e.target.value as "en" | "hi");
+                                localStorage.setItem("language", String(e.target.value as "en" | "hi"))
+                            }}
                             className="text-black p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
                             <option value="en">English</option>
@@ -196,12 +207,12 @@ export default function SellGold() {
                         </select>
                     </div>
 
-                    <h2 className="sm:text-2xl text-xl font-bold text-center mb-6 text-gray-800">
+                    <h2 className="sm:text-2xl text-xl font-bold text-center mb-6 text-gold">
                         {t.title}
                     </h2>
                     <form onSubmit={calculateSellPrice} className="space-y-4">
                         <div>
-                            <label className="block text-sm font-medium text-gray-700">{t.goldPriceLabel}</label>
+                            <label className="block text-sm font-medium text-white">{t.goldPriceLabel}</label>
                             <input
                                 type="number"
                                 value={goldPrice}
@@ -209,12 +220,12 @@ export default function SellGold() {
                                 placeholder={t.goldPriceLabel}
                                 className="w-full mt-1 text-black p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
-                            <p className="text-gray-500 text-sm mt-1">{t.goldPriceNote.replace("{price}", String(currentGoldPrice ?? "0"))}</p>
+                            <p className="text-gold text-sm mt-1">{t.goldPriceNote.replace("{price}", String(currentGoldPrice ?? "0"))}</p>
                             {errors.goldPrice && <p className="text-red-500 text-sm">{errors.goldPrice}</p>}
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700">{t.goldTypeLabel}</label>
+                            <label className="block text-sm font-medium text-white">{t.goldTypeLabel}</label>
                             <select
                                 value={goldType}
                                 onChange={(e) => setGoldType(e.target.value)}
@@ -227,7 +238,7 @@ export default function SellGold() {
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700">{t.weightLabel}</label>
+                            <label className="block text-sm font-medium text-white">{t.weightLabel}</label>
                             <input
                                 type="number"
                                 value={weight}
@@ -239,7 +250,7 @@ export default function SellGold() {
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700">{t.meltingLossLabel}</label>
+                            <label className="block text-sm font-medium text-white">{t.meltingLossLabel}</label>
                             <select
                                 value={meltingLossRate}
                                 onChange={(e) => setMeltingLossRate(parseInt(e.target.value))}
@@ -252,7 +263,7 @@ export default function SellGold() {
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700">{t.dealerMarginLabel}</label>
+                            <label className="block text-sm font-medium text-white">{t.dealerMarginLabel}</label>
                             <select
                                 value={dealerMarginRate}
                                 onChange={(e) => setDealerMarginRate(parseInt(e.target.value))}
@@ -265,7 +276,7 @@ export default function SellGold() {
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700">
+                            <label className="block text-sm font-medium text-white">
                                 {t.otherPriceLabel}
                             </label>
                             <input
@@ -279,7 +290,7 @@ export default function SellGold() {
 
                         <button
                             type="submit"
-                            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition duration-200"
+                            className="w-full bg-gold hover:bg-gold text-white font-semibold py-2 rounded-lg transition duration-200"
                         >
                             {t.calculateButton}
                         </button>
@@ -311,7 +322,7 @@ export default function SellGold() {
                                         <strong>{t.deductions}:</strong> ₹{breakdown.deductions.toFixed(2)}
                                     </p>
 
-                                    <p className="text-lg font-bold text-green-600">
+                                    <p className="text-lg font-bold text-gold">
                                         <strong>{t.total}:</strong> ₹{breakdown.total.toFixed(2)}
                                     </p>
                                 </div>

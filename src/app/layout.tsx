@@ -47,7 +47,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="theme-color" content="#f3f4f6" />
+        <meta name="theme-color" content="#000000" />
         <meta name="robots" content="index, follow" />
         <meta name="language" content="en-US" />
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
@@ -58,6 +58,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <footer>
+          <p className="text-sm text-center p-2">Copyright © <span>{new Date().getFullYear()}</span> <a href="https://im4udeepak.vercel.app/" target="_blank" className="text-gold">Deepak Sharma</a> all rights reserved.</p>
+        </footer>
       </body>
     </html>
   );
